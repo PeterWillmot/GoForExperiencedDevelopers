@@ -7,9 +7,15 @@ import (
 )
 
 func main() {
+	scheduler()
+	fmt.Println("All done ... back in main.... hit enter")
+	fmt.Scanln()
+}
+
+func scheduler() {
 	ch := make(chan int)
 
-	defer close(ch)
+	//defer close(ch)
 
 	for i := 3; i > 0; i-- {
 		fmt.Println("starting", i)
@@ -29,12 +35,13 @@ func main() {
 	//close(ch)    // this will cause a panic - channel closed too early
 
 	fmt.Println("First response from:", id)
-	fmt.Println("All done .... hit enter")
-	fmt.Scanln()
+
+	fmt.Println("Leaving scheduler")
 }
 
 func doStuff(id int, ch chan int) {
+	fmt.Println(id, "Started")
 	time.Sleep(time.Duration(id) * time.Second)
-	fmt.Println(id, "Done")
 	ch <- id
+	fmt.Println(id, "Done")
 }
