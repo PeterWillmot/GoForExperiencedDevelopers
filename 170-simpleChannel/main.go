@@ -3,45 +3,52 @@ package main
 import (
 	"fmt"
 	"time"
-	//	"time"
 )
 
 func main() {
 	scheduler()
-	fmt.Println("All done ... back in main.... hit enter")
+	fmt.Println("All done ... back in main")
+
+	// at this stage we could be doing other things
+	// all heap allocations made by "leaked goroutines" will never be collected
+
+	fmt.Println("Ready to exit main")
 	fmt.Scanln()
 }
 
 func scheduler() {
 	ch := make(chan int)
 
-	//defer close(ch)
+	//defer close(ch)	// if this is used then we will get panics for later attempts to write to ch
 
 	for i := 3; i > 0; i-- {
-		fmt.Println("starting", i)
 		go doStuff(i, ch)
 	}
 
 	id := <-ch
 
-	/*
-		id, ok := <-ch
-
-		if !ok {
-			fmt.Println("channel was closed")
-		}
-	*/
-
-	//close(ch)    // this will cause a panic - channel closed too early
-
 	fmt.Println("First response from:", id)
+
+	/*
+
+		//doStuff(2) will be blocked until we read its content from the ch
+
+		fmt.Println("Hit enter to get next")
+
+		id = <-ch
+
+		fmt.Println("Next response from:", id)
+	*/
 
 	fmt.Println("Leaving scheduler")
 }
 
 func doStuff(id int, ch chan int) {
-	fmt.Println(id, "Started")
+	fmt.Println(id, "Started") // display order for this output not deterministic!
+
 	time.Sleep(time.Duration(id) * time.Second)
-	ch <- id
+
+	ch <- id // potential "goroutine leak"
+
 	fmt.Println(id, "Done")
 }
