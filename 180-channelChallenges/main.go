@@ -23,15 +23,3 @@ func main() {
 		fmt.Println(i)
 	}
 }
-
-/*
-	_, ok := <-ch
-
-	if !ok {
-		fmt.Println("ch was closed")
-	}
-
-	fmt.Println("All done .... hit enter")
-	fmt.Scanln()
-
-*/
