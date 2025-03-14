@@ -4,6 +4,7 @@ See:
 go.dev/doc/gc-guide
 https://pkg.go.dev/github.com/chanshik/gotraining/topics/profiling/godebug/gctrace#section-readme
 https://pkg.go.dev/runtime
+https://dev.to/nikl/how-to-perform-memory-optimization-and-garbage-collector-management-in-go-1j7#:~:text=The%20GOGC%20parameter%20can%20be,GOGC%20is%20configured%20at%20100%25.&text=With%20a%20GOGC%20value%20of,14%20ms%20in%20our%20example.
 
 ========================================================================================================================
 
