@@ -1,0 +1,18 @@
+docker setup:
+
+     docker pull postgres
+
+     docker run --name postgresdb -e POSTGRES_PASSWORD=pgpassword -p 5432:5432 -d postgres 
+
+     docker exec postgresdb createdb -U postgres demodb
+
+     docker exec -ti postgresdb psql -U postgres 
+
+PSQL Cheatsheet:
+
+     \c demodb                      // connect to db
+     \dt                            // list tables
+     \?                              // help
+     SELECT * FROM xxxxxx;           
+     DROP TABLE IF EXISTS xxxxx;
+     SELECT * FROM pg_indexes WHERE tablename = 'employee';
