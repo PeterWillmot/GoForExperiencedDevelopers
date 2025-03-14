@@ -1,12 +1,13 @@
 Important sources:
 
+See: 
 go.dev/doc/gc-guide
 https://pkg.go.dev/github.com/chanshik/gotraining/topics/profiling/godebug/gctrace#section-readme
-See: https://pkg.go.dev/runtime
+https://pkg.go.dev/runtime
 
 ========================================================================================================================
 
-SET  GODEBUG=gctrace=1
+SET GODEBUG=gctrace=1
 SET GOGC=nnn (default 100)
 
 GO RUN main.go
@@ -47,6 +48,7 @@ Heap size - Start: 3 MB
 Heap Size - End: 3 MB
 Heap Size - Live: 1 MB
 Heap Size - Goal: 4 MB
+Size of Stack: 0MB
 Size of Globals: 0MB
 Procs in use: 8   (GOMAXPROCS)
 

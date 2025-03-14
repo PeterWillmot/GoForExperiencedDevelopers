@@ -12,6 +12,13 @@ func main() {
 	// at this stage we could be doing other things
 	// all heap allocations made by "leaked goroutines" will never be collected
 
+	/*
+		for i := 0; i < 5; i++ {
+			time.Sleep(1 * time.Second)
+			fmt.Printf("main loop %d \n", i)
+		}
+	*/
+
 	fmt.Println("Ready to exit main")
 	fmt.Scanln()
 }
@@ -19,7 +26,7 @@ func main() {
 func scheduler() {
 	ch := make(chan int)
 
-	//defer close(ch)	// if this is used then we will get panics for later attempts to write to ch
+	//defer close(ch) // if this is used then we will get panics for later attempts to write to ch
 
 	for i := 3; i > 0; i-- {
 		go doStuff(i, ch)
