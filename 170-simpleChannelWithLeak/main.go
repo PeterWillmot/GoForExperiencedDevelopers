@@ -46,9 +46,9 @@ func scheduler() {
 func doStuff(id int, ch chan int) {
 	fmt.Println(id, "Started") // display order for this output not deterministic!
 
-	var myHeapData []float64 = make([]float64, 1000000)
+	//var myHeapData []float64 = make([]float64, 1000000)
 
-	myHeapData[0] = float64(id)
+	//myHeapData[0] = float64(id)
 
 	time.Sleep(time.Duration(id) * time.Second)
 

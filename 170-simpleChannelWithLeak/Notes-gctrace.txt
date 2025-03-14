@@ -1,0 +1,52 @@
+Important sources:
+
+go.dev/doc/gc-guide
+https://pkg.go.dev/github.com/chanshik/gotraining/topics/profiling/godebug/gctrace#section-readme
+See: https://pkg.go.dev/runtime
+
+========================================================================================================================
+
+SET  GODEBUG=gctrace=1
+SET GOGC=nnn (default 100)
+
+GO RUN main.go
+========================================================================================================================
+gc 1 @0.055s 0%: 0+1.6+0 ms clock, 0+0/1.0/0+0 ms cpu, 3->4->1 MB, 4 MB goal, 0 MB stacks, 0 MB globals, 8 P
+gc 2 @0.063s 0%: 0+0+0 ms clock, 0+0/0/0+0 ms cpu, 3->3->1 MB, 4 MB goal, 0 MB stacks, 0 MB globals, 8 P
+gc 3 @0.082s 0%: 0+0.97+0 ms clock, 0+0.83/1.9/1.0+0 ms cpu, 3->3->1 MB, 4 MB goal, 0 MB stacks, 0 MB globals, 8 P
+gc 4 @0.103s 0%: 0+1.0+0 ms clock, 0+0.53/0.55/0.50+0 ms cpu, 3->3->1 MB, 4 MB goal, 0 MB stacks, 0 MB globals, 8 P
+gc 5 @0.119s 0%: 0+0+0 ms clock, 0+0/0/0+0 ms cpu, 3->3->1 MB, 4 MB goal, 0 MB stacks, 0 MB globals, 8 P
+gc 6 @0.152s 0%: 0+0.74+0 ms clock, 0+0.17/0.74/0+0 ms cpu, 3->3->1 MB, 4 MB goal, 0 MB stacks, 0 MB globals, 8 P
+========================================================================================================================
+
+
+    gc # @#s #%: #+#+# ms clock, #+#/#/#+# ms cpu, #->#-># MB, # MB goal, # P
+where the fields are as follows:
+    gc #        the GC number, incremented at each GC
+    @#s         time in seconds since program start
+    #%          percentage of time spent in GC since program start
+    #+...+#     wall-clock/CPU times for the phases of the GC
+    #->#-># MB  heap size at GC start, at GC end, and live heap
+    # MB goal   goal heap size
+    # P         number of processors used
+
+for example (from trace data previously):
+
+gc 6 @0.152s 0%: 0+0.74+0 ms clock, 0+0.17/0.74/0+0 ms cpu, 3->3->1 MB, 4 MB goal, 0 MB stacks, 0 MB globals, 8 P
+
+GC # : 6
+Time running: 0.152s
+% Time in GC: 0%
+Wall clock - STW Sweep termination: 0
+Wall clock - Concur Mark and Scan: 0.74
+Wall clock - STW Mark termination: 0
+CPU Time - STW Sweep termination: 0+0.17
+CPU Time - Concur Mark and Scan: 0+0.74
+CPU Time - STW Mark termination: 0+0
+Heap size - Start: 3 MB
+Heap Size - End: 3 MB
+Heap Size - Live: 1 MB
+Heap Size - Goal: 4 MB
+Size of Globals: 0MB
+Procs in use: 8   (GOMAXPROCS)
+
