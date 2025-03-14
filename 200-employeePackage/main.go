@@ -9,7 +9,6 @@ import (
 // this is my main
 
 func main() {
-	// we should get an errors here because of unexported Employee code
 
 	staff := []employee.Employee{
 		{Name: "Joe", Salary: 1000, Stuff: 0},
